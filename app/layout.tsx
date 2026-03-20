@@ -6,10 +6,10 @@ import './globals.css';
 
 export const metadata: Metadata = {
 	title: `${siteConfig.communityName} | Cursor Ambassador Site`,
-	description: 'Reusable Cursor Ambassador website template for local communities.',
+	description: `${siteConfig.communityName} — meetups, hackathons, and community for Cursor users in ${siteConfig.city}.`,
 	openGraph: {
 		title: siteConfig.communityName,
-		description: 'Reusable Cursor Ambassador website template for local communities.',
+		description: `${siteConfig.communityName} — meetups, hackathons, and community for Cursor users in ${siteConfig.city}.`,
 		type: 'website',
 	},
 };

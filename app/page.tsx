@@ -5,9 +5,9 @@ import { motion } from 'framer-motion';
 import Navbar from '@/components/Navbar';
 import HeroHeader from '@/components/HeroHeader';
 import AmbassadorSection from '@/components/AmbassadorSection';
-import FeaturedSection from '@/components/FeaturedSection';
 import UpcomingEvents from '@/components/UpcomingEvents';
 import PastEvents from '@/components/PastEvents';
+import DiscordSection from '@/components/DiscordSection';
 import GlobalEvents from '@/components/GlobalEvents';
 import Partners from '@/components/Partners';
 import SectionDivider from '@/components/SectionDivider';
@@ -55,9 +55,9 @@ const Home: React.FC = () => {
 			<div className="max-w-5xl mx-auto px-6 py-16 md:py-24">
 				<AmbassadorSection />
 				<SectionDivider />
-				<FeaturedSection />
-				<SectionDivider />
 				<UpcomingEvents />
+				<SectionDivider />
+				<DiscordSection />
 				<SectionDivider />
 				<PastEvents />
 				<SectionDivider />

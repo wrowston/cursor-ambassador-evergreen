@@ -4,7 +4,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Calendar, Users, ArrowRight } from 'lucide-react';
+import { Calendar, ArrowRight, ExternalLink } from 'lucide-react';
 import { pastEvents } from '@/content/events';
 import { useI18n } from '@/lib/i18n';
 
@@ -43,91 +43,60 @@ const PastEvents: React.FC = () => {
 				initial="hidden"
 				whileInView="visible"
 				viewport={{ once: true, margin: '-50px' }}
-				className="space-y-6"
+				className="space-y-4"
 			>
 				{pastEvents.map((event) => {
-					if (!event.recapPath) return null;
-
 					const displayDate = new Date(`${event.date}T00:00:00`).toLocaleDateString(
 						locale === 'en' ? 'en-US' : locale,
-						{
-							year: 'numeric',
-							month: 'long',
-							day: 'numeric',
-						},
+						{ year: 'numeric', month: 'long', day: 'numeric' },
 					);
-
-					const hasGallery = event.galleryImages && event.galleryImages.length > 0;
 
 					return (
 						<motion.div key={event.id} variants={itemVariants}>
-							<Link href={event.recapPath} className="block group">
-								<div className="bg-[#1B1913] border border-cursor-border rounded-md overflow-hidden transition-all duration-300 hover:border-[#f54e00]/50 hover:shadow-[0_0_20px_rgba(245,78,0,0.08)]">
-									{event.thumbnail ? (
-										<div className="relative">
-											<div
-												className={`aspect-[2/1] overflow-hidden ${hasGallery ? 'grid grid-cols-3 gap-1' : ''}`}
-											>
-												<div className={`relative ${hasGallery ? 'col-span-2' : ''}`}>
-													<Image
-														src={event.thumbnail}
-														alt={event.title}
-														fill
-														className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
-														sizes="(max-width: 768px) 100vw, 60vw"
-													/>
-												</div>
-												{hasGallery &&
-													event.galleryImages!.slice(0, 2).map((img, i) => (
-														<div key={i} className="relative">
-															<Image
-																src={img}
-																alt=""
-																fill
-																className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
-																sizes="(max-width: 768px) 33vw, 20vw"
-															/>
-														</div>
-													))}
-											</div>
-											{event.host ? (
-												<div className="absolute top-3 right-3 bg-black/60 backdrop-blur-sm rounded-lg p-2 flex items-center gap-2">
-													<Image
-														src={event.host.logo}
-														alt={event.host.name}
-														width={20}
-														height={20}
-														className="rounded-full"
-													/>
-													<span className="text-xs text-white">{event.host.name}</span>
-												</div>
-											) : null}
-										</div>
-									) : null}
-
-									<div className="px-5 py-4">
-										<h3 className="text-lg text-cursor-text font-medium mb-1.5">{event.title}</h3>
-										<div className="flex flex-wrap items-center gap-3 text-sm text-cursor-text-muted mb-1.5">
-											<div className="flex items-center gap-1.5">
-												<Calendar className="w-4 h-4" />
-												<span>{displayDate}</span>
-											</div>
-											{event.attendees ? (
-												<div className="flex items-center gap-1.5">
-													<Users className="w-4 h-4" />
-													<span>
-														{t('home.attendees', { count: String(event.attendees) })}
-													</span>
-												</div>
-											) : null}
-										</div>
-										<div className="flex items-center gap-2 text-sm text-[#f54e00]">
-											<span>{t('home.viewRecap')}</span>
-											<ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200 ease-out" />
+							<div className="bg-cursor-surface border border-cursor-border rounded-lg overflow-hidden flex items-center gap-5 p-4 group">
+								{event.thumbnail ? (
+									<div className="relative w-28 h-20 flex-shrink-0 rounded-md overflow-hidden">
+										<Image
+											src={event.thumbnail}
+											alt={event.title}
+											fill
+											className="object-cover"
+											sizes="112px"
+										/>
+									</div>
+								) : null}
+								<div className="flex-1 min-w-0">
+									<h3 className="text-cursor-text font-medium mb-1.5">{event.title}</h3>
+									<div className="flex flex-wrap items-center gap-3 text-sm text-cursor-text-muted">
+										<div className="flex items-center gap-1.5">
+											<Calendar className="w-4 h-4" />
+											<span>{displayDate}</span>
 										</div>
 									</div>
+									<div className="flex items-center gap-4 mt-2">
+										{event.recapPath ? (
+											<Link
+												href={event.recapPath}
+												className="flex items-center gap-1.5 text-sm text-cursor-text hover:text-cursor-text-muted transition-colors"
+											>
+												<span>{t('home.viewRecap')}</span>
+												<ArrowRight className="w-4 h-4" />
+											</Link>
+										) : null}
+										{event.lumaUrl ? (
+											<a
+												href={event.lumaUrl}
+												target="_blank"
+												rel="noopener noreferrer"
+												className="flex items-center gap-1.5 text-sm text-cursor-text hover:text-cursor-text-muted transition-colors"
+											>
+												<span>View on Luma</span>
+												<ExternalLink className="w-3.5 h-3.5" />
+											</a>
+										) : null}
+									</div>
 								</div>
-							</Link>
+							</div>
 						</motion.div>
 					);
 				})}

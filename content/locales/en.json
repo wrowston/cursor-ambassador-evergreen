@@ -17,6 +17,7 @@
 	},
 	"footer": {
 		"hostingPartners": "Hosting Partners",
+		"partnerCta": "Interested in hosting or sponsoring a Cursor event? Get in touch.",
 		"community": "Cursor Community",
 		"allEvents": "All events on Luma",
 		"madeWith": "Made with Cursor by ambassadors worldwide"
@@ -59,6 +60,11 @@
 		"question3": "\"What's your favorite Cursor feature?\"",
 		"numberCard": "random number card",
 		"sameNumber": "the same number"
+	},
+	"discord": {
+		"title": "Join our Discord",
+		"description": "Connect with the community, share what you're building, and stay up to date.",
+		"join": "Join Discord"
 	},
 	"worldEvents": {
 		"title": "Cafe Cursor around the world",

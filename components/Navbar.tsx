@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from 'react'
 import Image from 'next/image'
 import { Menu, X } from 'lucide-react'
+import { siDiscord } from 'simple-icons'
 import { useI18n } from '@/lib/i18n'
 import LanguageToggle from '@/components/LanguageToggle'
 import { siteConfig } from '@/content/site.config'
@@ -109,6 +110,17 @@ export default function Navbar() {
               )
             })}
             <a
+              href={siteConfig.discordUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-cursor-text-muted hover:text-cursor-text transition-colors"
+              aria-label="Discord"
+            >
+              <svg role="img" viewBox="0 0 24 24" className="w-5 h-5 fill-current">
+                <path d={siDiscord.path} />
+              </svg>
+            </a>
+            <a
               href={siteConfig.lumaUrl}
               target="_blank"
               rel="noopener noreferrer"
@@ -145,6 +157,19 @@ export default function Navbar() {
                 {t(key)}
               </a>
             ))}
+            <a
+              href={siteConfig.discordUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={closeMobile}
+              className="flex items-center gap-2 text-lg text-cursor-text-muted hover:text-cursor-text transition-colors"
+              aria-label="Discord"
+            >
+              <svg role="img" viewBox="0 0 24 24" className="w-5 h-5 fill-current">
+                <path d={siDiscord.path} />
+              </svg>
+              <span>Discord</span>
+            </a>
             <a
               href={siteConfig.lumaUrl}
               target="_blank"
