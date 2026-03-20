@@ -8,7 +8,6 @@ import AmbassadorSection from '@/components/AmbassadorSection';
 import UpcomingEvents from '@/components/UpcomingEvents';
 import PastEvents from '@/components/PastEvents';
 import DiscordSection from '@/components/DiscordSection';
-import GlobalEvents from '@/components/GlobalEvents';
 import Partners from '@/components/Partners';
 import SectionDivider from '@/components/SectionDivider';
 import JsonLd from '@/components/JsonLd';
@@ -60,8 +59,6 @@ const Home: React.FC = () => {
 				<DiscordSection />
 				<SectionDivider />
 				<PastEvents />
-				<SectionDivider />
-				<GlobalEvents />
 
 				<motion.footer
 					initial={{ opacity: 0 }}
