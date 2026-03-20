@@ -3,7 +3,7 @@ export const siteConfig = {
 	communityNameLocal: '',
 	city: 'Salt Lake City',
 	country: 'United States',
-	lumaUrl: 'https://lu.ma/cursor-slc',
+	lumaUrl: 'https://luma.com/iz8kr9qw',
 	cursorCommunityUrl: 'https://cursor.com/community',
 	defaultLocale: 'en',
 	locales: ['en'],
