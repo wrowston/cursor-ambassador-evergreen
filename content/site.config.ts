@@ -8,7 +8,7 @@ export const siteConfig = {
 	defaultLocale: 'en',
 	locales: ['en'],
 	footerTagline: 'Made with Cursor by ambassadors worldwide',
-	discordUrl: 'https://discord.gg/cursor-slc',
+	discordUrl: 'https://discord.gg/tQpN9UEt',
 };
 
 export type SiteConfig = typeof siteConfig;
