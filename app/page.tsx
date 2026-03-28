@@ -56,9 +56,9 @@ const Home: React.FC = () => {
 				<SectionDivider />
 				<UpcomingEvents />
 				<SectionDivider />
-				<DiscordSection />
-				<SectionDivider />
 				<PastEvents />
+				<SectionDivider />
+				<DiscordSection />
 
 				<motion.footer
 					initial={{ opacity: 0 }}
