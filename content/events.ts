@@ -3,11 +3,13 @@ import { CursorEvent } from '@/lib/types';
 export const events: CursorEvent[] = [
 	{
 		id: 'cafe-cursor-slc',
-		title: 'Cafe Cursor Salt Lake City',
-		date: '',
-		displayDate: 'Coming Soon',
+		title: 'Cafe Cursor SLC - May 9th, 2026',
+		date: '2026-05-09',
+		displayDate: 'May 9th, 2026',
 		location: 'Salt Lake City, Utah',
-		lumaUrl: 'https://luma.com/iz8kr9qw',
+		lumaUrl: 'https://luma.com/event/evt-sa7UnwEzjOKsq4m',
+		lumaEventId: 'evt-sa7UnwEzjOKsq4m',
+		qrPath: '/cafe-cursor-qr',
 		status: 'upcoming',
 	},
 	{
