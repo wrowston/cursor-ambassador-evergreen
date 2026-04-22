@@ -4,7 +4,6 @@ import { notFound } from 'next/navigation';
 import QRCode from 'qrcode';
 import type { Metadata } from 'next';
 import { events } from '@/content/events';
-import { LumaEventEmbed } from '@/components/LumaEventEmbed';
 
 const EVENT_ID = 'cafe-cursor-slc';
 
@@ -16,7 +15,6 @@ export const metadata: Metadata = {
 export default async function CafeCursorQrPage() {
 	const event = events.find((e) => e.id === EVENT_ID);
 	const lumaUrl = event?.lumaUrl;
-	const lumaEventId = event?.lumaEventId;
 	if (!lumaUrl) {
 		notFound();
 	}
@@ -30,7 +28,7 @@ export default async function CafeCursorQrPage() {
 
 	return (
 		<main className="min-h-screen bg-cursor-bg text-cursor-text flex flex-col items-center justify-center px-6 py-16">
-			<div className="flex flex-col items-center text-center max-w-[600px] w-full">
+			<div className="flex flex-col items-center text-center max-w-md w-full">
 				<Image
 					src="/cursor-logo.svg"
 					alt="Cursor"
@@ -42,14 +40,9 @@ export default async function CafeCursorQrPage() {
 				<p className="font-cursor text-2xl md:text-3xl font-semibold tracking-tight text-cursor-text mb-2">
 					Salt Lake City
 				</p>
-				<h1 className="font-cursor text-xl md:text-2xl text-cursor-text-secondary mb-6">
+				<h1 className="font-cursor text-xl md:text-2xl text-cursor-text-secondary mb-10">
 					Cafe Cursor
 				</h1>
-				{lumaEventId ? (
-					<div className="mb-8 w-full">
-						<LumaEventEmbed eventId={lumaEventId} className="block" />
-					</div>
-				) : null}
 				<div className="bg-white p-4 rounded-2xl shadow-lg">
 					<div
 						className="w-[280px] max-w-full [&>svg]:block [&>svg]:h-auto [&>svg]:w-full"
