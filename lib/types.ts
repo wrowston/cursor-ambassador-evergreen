@@ -9,6 +9,10 @@ export interface CursorEvent {
 	attendees?: number;
 	location: string;
 	lumaUrl?: string;
+	/** Luma event id for luma.com embed iframe (e.g. evt-xxx) */
+	lumaEventId?: string;
+	/** Internal path (e.g. /cafe-cursor-qr) for a printable / shareable QR poster */
+	qrPath?: string;
 	recapPath?: string;
 	thumbnail?: string;
 	galleryImages?: string[];
