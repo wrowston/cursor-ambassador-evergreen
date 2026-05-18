@@ -8,6 +8,7 @@ export interface CursorEvent {
 	displayDate: string;
 	attendees?: number;
 	location: string;
+	locationUrl?: string;
 	lumaUrl?: string;
 	/** Luma event id for luma.com embed iframe (e.g. evt-xxx) */
 	lumaEventId?: string;
@@ -49,22 +50,6 @@ export interface FeaturedResource {
 	ctaLabel: string;
 }
 
-export interface HeaderPhoto {
-	src: string;
-	alt: string;
-	row: number;
-	col: number;
-	rowSpan?: number;
-	colSpan?: number;
-	mobile?: {
-		row: number;
-		col: number;
-		rowSpan?: number;
-		colSpan?: number;
-	};
-	mobileHidden?: boolean;
-}
-
 export interface GalleryPhoto {
 	src: string;
 	alt: string;
@@ -103,6 +88,8 @@ export interface RecapData {
 	slug: string;
 	title: string;
 	date: string;
+	location?: string;
+	locationUrl?: string;
 	attendees?: number;
 	summary: string[];
 	host?: { name: string; logo: string; url?: string };

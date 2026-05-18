@@ -3,7 +3,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { Mic, Lightbulb, MessageSquareQuote, Link as LinkIcon } from 'lucide-react';
+import { Mic, Lightbulb, MessageSquareQuote, Link as LinkIcon, MapPin } from 'lucide-react';
 import PhotoGallery from '@/components/PhotoGallery';
 import { RecapData } from '@/lib/types';
 import { useI18n } from '@/lib/i18n';
@@ -24,7 +24,30 @@ const EventRecap: React.FC<EventRecapProps> = ({ recap }) => {
 		>
 			<div className="bg-[#1B1913] border border-cursor-border rounded-lg p-8">
 				<h2 className="text-xl font-semibold text-cursor-text mb-2">{recap.title}</h2>
-				<p className="text-cursor-text-muted text-sm mb-6">{recap.date}</p>
+				<div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-cursor-text-muted text-sm mb-6">
+					<span>{recap.date}</span>
+					{recap.location ? (
+						<>
+							<span className="text-cursor-text-faint">·</span>
+							{recap.locationUrl ? (
+								<a
+									href={recap.locationUrl}
+									target="_blank"
+									rel="noopener noreferrer"
+									className="inline-flex items-center gap-1.5 hover:text-cursor-text transition-colors"
+								>
+									<MapPin className="w-3.5 h-3.5" />
+									{recap.location}
+								</a>
+							) : (
+								<span className="inline-flex items-center gap-1.5">
+									<MapPin className="w-3.5 h-3.5" />
+									{recap.location}
+								</span>
+							)}
+						</>
+					) : null}
+				</div>
 
 				{recap.host ? (
 					<div className="text-cursor-text-muted text-sm mb-6 flex items-center gap-2">

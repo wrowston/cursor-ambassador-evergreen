@@ -1,6 +1,8 @@
-import { exampleEventRecap } from '@/content/recaps/example-event';
+import { cafeCursorSlcRecap } from '@/content/recaps/cafe-cursor-slc';
+import { cursorMeetupSlc1Recap } from '@/content/recaps/cursor-meetup-slc-1';
 import { RecapData } from '@/lib/types';
 
 export const recapsBySlug: Record<string, RecapData> = {
-	[exampleEventRecap.slug]: exampleEventRecap,
+	[cursorMeetupSlc1Recap.slug]: cursorMeetupSlc1Recap,
+	[cafeCursorSlcRecap.slug]: cafeCursorSlcRecap,
 };

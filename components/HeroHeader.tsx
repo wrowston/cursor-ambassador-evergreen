@@ -2,8 +2,8 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import BentoGrid from '@/components/BentoGrid';
-import { headerPhotos } from '@/content/header-photos';
+import PhotoMarquee from '@/components/PhotoMarquee';
+import { marqueeRowOne, marqueeRowTwo } from '@/content/header-photos';
 
 const HeroHeader: React.FC = () => {
 	return (
@@ -17,7 +17,7 @@ const HeroHeader: React.FC = () => {
 				WebkitMaskImage: 'linear-gradient(to bottom, black 85%, transparent)',
 			}}
 		>
-			<BentoGrid photos={headerPhotos} cols={4} rows={4} mobileCols={2} mobileRows={4} />
+			<PhotoMarquee rowOne={marqueeRowOne} rowTwo={marqueeRowTwo} />
 		</motion.div>
 	);
 };

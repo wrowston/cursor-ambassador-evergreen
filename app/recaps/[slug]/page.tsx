@@ -1,5 +1,7 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import Link from 'next/link';
+import { ArrowLeft } from 'lucide-react';
 import EventRecap from '@/components/EventRecap';
 import JsonLd from '@/components/JsonLd';
 import { recapsBySlug } from '@/content/recaps';
@@ -70,6 +72,13 @@ export default async function RecapPage({ params }: RecapPageProps) {
 		<main className="min-h-screen bg-cursor-bg text-cursor-text">
 			{jsonLd && <JsonLd data={jsonLd} />}
 			<div className="max-w-5xl mx-auto px-6 py-12">
+				<Link
+					href="/#recaps"
+					className="inline-flex items-center gap-1.5 text-sm text-cursor-text-muted hover:text-cursor-text transition-colors mb-6"
+				>
+					<ArrowLeft className="w-4 h-4" />
+					<span>Back to events</span>
+				</Link>
 				<EventRecap recap={recap} />
 			</div>
 		</main>

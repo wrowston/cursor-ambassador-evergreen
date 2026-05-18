@@ -4,7 +4,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Calendar, ArrowRight, ExternalLink } from 'lucide-react';
+import { Calendar, ArrowRight, ExternalLink, MapPin } from 'lucide-react';
 import { pastEvents } from '@/content/events';
 import { useI18n } from '@/lib/i18n';
 
@@ -72,6 +72,23 @@ const PastEvents: React.FC = () => {
 											<Calendar className="w-4 h-4" />
 											<span>{displayDate}</span>
 										</div>
+										{event.location ? (
+											<div className="flex items-center gap-1.5">
+												<MapPin className="w-4 h-4" />
+												{event.locationUrl ? (
+													<a
+														href={event.locationUrl}
+														target="_blank"
+														rel="noopener noreferrer"
+														className="hover:text-cursor-text transition-colors"
+													>
+														{event.location}
+													</a>
+												) : (
+													<span>{event.location}</span>
+												)}
+											</div>
+										) : null}
 									</div>
 									<div className="flex items-center gap-4 mt-2">
 										{event.recapPath ? (
