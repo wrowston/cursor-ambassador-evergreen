@@ -2,6 +2,15 @@ import { CursorEvent } from '@/lib/types';
 
 export const events: CursorEvent[] = [
 	{
+		id: 'ai-builder-day-aug',
+		title: 'Utah AI Builder Day - August',
+		date: '2026-08-14',
+		displayDate: 'August 14, 2026',
+		location: 'Salt Lake City',
+		redeemPath: '/credits/event/ai-builder-day-aug/redeem',
+		status: 'upcoming',
+	},
+	{
 		id: 'cafe-cursor-slc',
 		title: 'Cafe Cursor SLC - May 16th, 2026',
 		date: '2026-05-16',

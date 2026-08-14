@@ -3,6 +3,8 @@
 
 @source "../components";
 @source "../modules";
+@source "./credits";
+@source "../lib/credits";
 
 @font-face {
 	font-family: 'BSRU Pro';

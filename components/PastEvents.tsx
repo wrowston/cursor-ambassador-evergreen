@@ -111,6 +111,14 @@ const PastEvents: React.FC = () => {
 												<ExternalLink className="w-3.5 h-3.5" />
 											</a>
 										) : null}
+										{event.redeemPath ? (
+											<Link
+												href={event.redeemPath}
+												className="flex items-center gap-1.5 text-sm text-cursor-text hover:text-cursor-text-muted transition-colors"
+											>
+												<span>{t('home.claimCredits')}</span>
+											</Link>
+										) : null}
 									</div>
 								</div>
 							</div>

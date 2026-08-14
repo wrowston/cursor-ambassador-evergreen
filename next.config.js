@@ -1,5 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+	serverExternalPackages: ['firebase-admin'],
+	turbopack: {
+		root: __dirname,
+	},
 	images: {
 		remotePatterns: [
 			{

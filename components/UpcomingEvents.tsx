@@ -86,6 +86,19 @@ const UpcomingEvents: React.FC = () => {
 												</Link>
 											</>
 										) : null}
+										{event.redeemPath ? (
+											<>
+												<span className="text-cursor-text-faint" aria-hidden>
+													&middot;
+												</span>
+												<Link
+													href={event.redeemPath}
+													className="text-sm text-cursor-text hover:text-cursor-text-muted transition-colors"
+												>
+													{t('home.claimCredits')}
+												</Link>
+											</>
+										) : null}
 									</div>
 									{event.lumaEventId ? (
 										<div className="mt-4 w-full max-w-[600px]">
