@@ -142,8 +142,6 @@ export function RedemptionForm({ projectId }: Props) {
 							setError(null);
 							if (attendee) {
 								setState({ step: 'email', name: attendee.name, expectedEmail: attendee.email, email: '' });
-							} else {
-								setState({ step: 'name', name: state.name });
 							}
 						}}
 						error={state.step === 'name' ? (error ?? undefined) : undefined}
