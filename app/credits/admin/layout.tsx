@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { btnClass } from '@/components/credits/chrome';
+import { Button } from '@/components/ui/button';
 import { clearSelectedProject, getSelectedProject, type SelectedProject } from '@/lib/credits/session';
 
 const NAV = [
@@ -55,7 +55,7 @@ export default function CreditsAdminLayout({ children }: { children: React.React
 	};
 
 	if (!ready) {
-		return <p className="p-8 text-sm text-cursor-text-muted">Loading...</p>;
+		return <p className="p-8 text-sm text-muted-foreground">Loading...</p>;
 	}
 
 	if (pathname === '/credits/admin' || pathname === '/credits/admin/projects') {
@@ -68,26 +68,26 @@ export default function CreditsAdminLayout({ children }: { children: React.React
 
 	return (
 		<div>
-			<header className="border-b border-cursor-border">
+			<header className="border-b">
 				<div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
 					<div>
-						<h1 className="text-lg font-medium">Cursor Credits Admin</h1>
-						<p className="text-sm text-cursor-text-muted">{project.name}</p>
+						<h1 className="text-lg font-semibold tracking-tight">Cursor Credits Admin</h1>
+						<p className="text-sm text-muted-foreground">{project.name}</p>
 					</div>
 					<div className="flex flex-wrap gap-2">
-						<Link href="/credits/admin/projects" className={btnClass}>
-							Switch Project
-						</Link>
-						<Link href={`/credits/event/${project.slug}/redeem`} className={btnClass}>
-							View Public Site
-						</Link>
-						<button type="button" onClick={logout} className={btnClass}>
+						<Button variant="outline" size="sm" asChild>
+							<Link href="/credits/admin/projects">Switch Project</Link>
+						</Button>
+						<Button variant="outline" size="sm" asChild>
+							<Link href={`/credits/event/${project.slug}/redeem`}>View Public Site</Link>
+						</Button>
+						<Button type="button" variant="outline" size="sm" onClick={logout}>
 							Logout
-						</button>
+						</Button>
 					</div>
 				</div>
 			</header>
-			<nav className="border-b border-cursor-border">
+			<nav className="border-b">
 				<div className="mx-auto flex max-w-5xl gap-6 px-6">
 					{NAV.map((item) => (
 						<Link
@@ -95,8 +95,8 @@ export default function CreditsAdminLayout({ children }: { children: React.React
 							href={item.href}
 							className={`border-b-2 py-3 text-sm ${
 								pathname === item.href
-									? 'border-cursor-text text-cursor-text'
-									: 'border-transparent text-cursor-text-muted hover:text-cursor-text'
+									? 'border-foreground text-foreground'
+									: 'border-transparent text-muted-foreground hover:text-foreground'
 							}`}
 						>
 							{item.label}

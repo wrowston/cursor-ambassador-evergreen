@@ -1,7 +1,13 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
-import { btnClass, btnPrimaryClass, cardClass, fieldClass } from '@/components/credits/chrome';
+import { Copy, ExternalLink } from 'lucide-react';
+import { FilterChip } from '@/components/credits/FilterChip';
+import { cardClass } from '@/components/credits/chrome';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
 import { getSelectedProject } from '@/lib/credits/session';
 import type { CodeListItem } from '@/lib/credits/model';
 
@@ -51,27 +57,28 @@ export default function CreditsAdminCodesPage() {
 	const usedCount = codes.filter((code) => code.isUsed).length;
 
 	if (loading) {
-		return <p className="text-sm text-cursor-text-muted">Loading codes...</p>;
+		return <p className="text-sm text-muted-foreground">Loading codes...</p>;
 	}
 
 	if (error) {
 		return (
-			<div className={cardClass}>
-				<p className="text-cursor-accent-red">{error}</p>
-				<button type="button" className={`${btnClass} mt-4`} onClick={load}>
-					Try Again
-				</button>
-			</div>
+			<Card>
+				<CardContent>
+					<p className="text-destructive">{error}</p>
+					<Button type="button" variant="outline" className="mt-4" onClick={load}>
+						Try Again
+					</Button>
+				</CardContent>
+			</Card>
 		);
 	}
 
 	return (
 		<div className="space-y-6">
 			<div className="flex items-center justify-between">
-				<h1 className="text-2xl font-medium">Code Management</h1>
-				<button
+				<h1 className="text-2xl font-semibold tracking-tight">Code Management</h1>
+				<Button
 					type="button"
-					className={btnPrimaryClass}
 					onClick={() => {
 						const rows = [
 							['Code URL', 'Status', 'Redeemed By', 'Redeemed At'],
@@ -86,7 +93,7 @@ export default function CreditsAdminCodesPage() {
 					}}
 				>
 					Export
-				</button>
+				</Button>
 			</div>
 
 			<div className="grid grid-cols-1 gap-4 md:grid-cols-3">
@@ -95,48 +102,71 @@ export default function CreditsAdminCodesPage() {
 				<MiniStat label="Total Codes" value={codes.length} />
 			</div>
 
-			<div className={cardClass}>
-				<div className="flex flex-wrap gap-2">
-					{(
-						[
-							['all', `All (${codes.length})`],
-							['unused', `Available (${codes.length - usedCount})`],
-							['used', `Redeemed (${usedCount})`],
-						] as const
-					).map(([key, label]) => (
-						<button
-							key={key}
-							type="button"
-							onClick={() => setFilter(key)}
-							className={filter === key ? btnPrimaryClass : btnClass}
-						>
-							{label}
-						</button>
-					))}
-				</div>
-				<input
-					className={`${fieldClass} mt-4 max-w-sm`}
-					placeholder="Search codes or redeemed by..."
-					value={search}
-					onChange={(event) => setSearch(event.target.value)}
-				/>
-			</div>
+			<Card>
+				<CardContent className="space-y-4">
+					<div className="flex flex-wrap gap-2">
+						<FilterChip selected={filter === 'all'} onClick={() => setFilter('all')}>
+							All ({codes.length})
+						</FilterChip>
+						<FilterChip selected={filter === 'unused'} onClick={() => setFilter('unused')}>
+							Available ({codes.length - usedCount})
+						</FilterChip>
+						<FilterChip selected={filter === 'used'} onClick={() => setFilter('used')}>
+							Redeemed ({usedCount})
+						</FilterChip>
+					</div>
+					<Input
+						className="max-w-sm"
+						placeholder="Search codes or redeemed by..."
+						value={search}
+						onChange={(event) => setSearch(event.target.value)}
+					/>
+				</CardContent>
+			</Card>
 
-			<div className={cardClass}>
-				<h2 className="font-medium">Codes ({filtered.length})</h2>
-				<div className="mt-4 space-y-2">
-					{filtered.map((code) => (
-						<div key={code.id} className="rounded-md border border-cursor-border bg-cursor-bg p-3">
-							<a href={code.url} target="_blank" rel="noopener noreferrer" className="font-mono text-sm underline">
-								{code.url}
-							</a>
-							<p className="mt-1 text-xs text-cursor-text-muted">
-								{code.isUsed ? `Used${code.redeemedBy ? ` by ${code.redeemedBy}` : ''}` : 'Available'}
-							</p>
-						</div>
-					))}
-					{filtered.length === 0 ? <p className="py-6 text-center text-sm text-cursor-text-muted">No codes found.</p> : null}
-				</div>
+			<Card>
+				<CardContent>
+					<h2 className="font-heading font-semibold tracking-tight">Codes ({filtered.length})</h2>
+					<div className="mt-4 space-y-2">
+						{filtered.map((code) => (
+							<CodeRow key={code.id} code={code} />
+						))}
+						{filtered.length === 0 ? (
+							<p className="py-6 text-center text-sm text-muted-foreground">No codes found.</p>
+						) : null}
+					</div>
+				</CardContent>
+			</Card>
+		</div>
+	);
+}
+
+function CodeRow({ code }: { code: CodeListItem }) {
+	const [copied, setCopied] = useState(false);
+
+	const copy = async () => {
+		await navigator.clipboard.writeText(code.url);
+		setCopied(true);
+		window.setTimeout(() => setCopied(false), 1200);
+	};
+
+	return (
+		<div className="flex flex-wrap items-center justify-between gap-3 rounded-lg border bg-background p-3">
+			<div className="flex min-w-0 items-center gap-2">
+				<Button type="button" variant="outline" size="sm" onClick={copy} className="max-w-full">
+					<span className="max-w-[42ch] truncate font-mono">{code.url}</span>
+					<Copy data-icon="inline-end" />
+				</Button>
+				<Button variant="ghost" size="icon-sm" asChild>
+					<a href={code.url} target="_blank" rel="noopener noreferrer" aria-label="Open referral link">
+						<ExternalLink />
+					</a>
+				</Button>
+			</div>
+			<div className="flex flex-wrap items-center gap-2">
+				<Badge variant={code.isUsed ? 'secondary' : 'success'}>{code.isUsed ? 'Redeemed' : 'Available'}</Badge>
+				{code.redeemedBy ? <Badge variant="outline">{code.redeemedBy}</Badge> : null}
+				{copied ? <span className="text-xs text-muted-foreground">Copied</span> : null}
 			</div>
 		</div>
 	);
@@ -145,8 +175,8 @@ export default function CreditsAdminCodesPage() {
 function MiniStat({ label, value }: { label: string; value: number }) {
 	return (
 		<div className={cardClass}>
-			<p className="text-2xl font-medium">{value}</p>
-			<p className="text-sm text-cursor-text-muted">{label}</p>
+			<p className="text-2xl font-semibold tracking-tight">{value}</p>
+			<p className="text-sm text-muted-foreground">{label}</p>
 		</div>
 	);
 }

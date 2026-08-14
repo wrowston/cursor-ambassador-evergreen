@@ -16,8 +16,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
 	return (
-		<html lang={siteConfig.defaultLocale}>
-			<body className="antialiased">
+		<html lang={siteConfig.defaultLocale} className="dark">
+			<body className="bg-background font-sans text-foreground antialiased">
 				<I18nProvider>{children}</I18nProvider>
 				<Analytics />
 			</body>

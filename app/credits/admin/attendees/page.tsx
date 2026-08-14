@@ -1,7 +1,12 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
-import { btnClass, btnPrimaryClass, cardClass, fieldClass } from '@/components/credits/chrome';
+import { FilterChip } from '@/components/credits/FilterChip';
+import { cardClass } from '@/components/credits/chrome';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
 import { getSelectedProject } from '@/lib/credits/session';
 import type { AttendeeListItem } from '@/lib/credits/model';
 
@@ -51,27 +56,28 @@ export default function CreditsAdminAttendeesPage() {
 	const redeemedCount = attendees.filter((attendee) => attendee.hasRedeemed).length;
 
 	if (loading) {
-		return <p className="text-sm text-cursor-text-muted">Loading attendees...</p>;
+		return <p className="text-sm text-muted-foreground">Loading attendees...</p>;
 	}
 
 	if (error) {
 		return (
-			<div className={cardClass}>
-				<p className="text-cursor-accent-red">{error}</p>
-				<button type="button" className={`${btnClass} mt-4`} onClick={load}>
-					Try Again
-				</button>
-			</div>
+			<Card>
+				<CardContent>
+					<p className="text-destructive">{error}</p>
+					<Button type="button" variant="outline" className="mt-4" onClick={load}>
+						Try Again
+					</Button>
+				</CardContent>
+			</Card>
 		);
 	}
 
 	return (
 		<div className="space-y-6">
 			<div className="flex items-center justify-between">
-				<h1 className="text-2xl font-medium">Attendee Management</h1>
-				<button
+				<h1 className="text-2xl font-semibold tracking-tight">Attendee Management</h1>
+				<Button
 					type="button"
-					className={btnPrimaryClass}
 					onClick={() => {
 						const rows = [
 							['Name', 'Email', 'Status', 'Redeemed At', 'Code URL'],
@@ -94,7 +100,7 @@ export default function CreditsAdminAttendeesPage() {
 					}}
 				>
 					Export
-				</button>
+				</Button>
 			</div>
 
 			<div className="grid grid-cols-1 gap-4 md:grid-cols-3">
@@ -103,59 +109,56 @@ export default function CreditsAdminAttendeesPage() {
 				<MiniStat label="Total Attendees" value={attendees.length} />
 			</div>
 
-			<div className={cardClass}>
-				<div className="flex flex-wrap gap-2">
-					{(
-						[
-							['all', `All (${attendees.length})`],
-							['pending', `Pending (${attendees.length - redeemedCount})`],
-							['redeemed', `Redeemed (${redeemedCount})`],
-						] as const
-					).map(([key, label]) => (
-						<button
-							key={key}
-							type="button"
-							onClick={() => setFilter(key)}
-							className={filter === key ? btnPrimaryClass : btnClass}
-						>
-							{label}
-						</button>
-					))}
-				</div>
-				<input
-					className={`${fieldClass} mt-4 max-w-sm`}
-					placeholder="Search by name or email..."
-					value={search}
-					onChange={(event) => setSearch(event.target.value)}
-				/>
-			</div>
+			<Card>
+				<CardContent className="space-y-4">
+					<div className="flex flex-wrap gap-2">
+						<FilterChip selected={filter === 'all'} onClick={() => setFilter('all')}>
+							All ({attendees.length})
+						</FilterChip>
+						<FilterChip selected={filter === 'pending'} onClick={() => setFilter('pending')}>
+							Pending ({attendees.length - redeemedCount})
+						</FilterChip>
+						<FilterChip selected={filter === 'redeemed'} onClick={() => setFilter('redeemed')}>
+							Redeemed ({redeemedCount})
+						</FilterChip>
+					</div>
+					<Input
+						className="max-w-sm"
+						placeholder="Search by name or email..."
+						value={search}
+						onChange={(event) => setSearch(event.target.value)}
+					/>
+				</CardContent>
+			</Card>
 
-			<div className={cardClass}>
-				<h2 className="font-medium">Attendees ({filtered.length})</h2>
-				<div className="mt-4 space-y-3">
-					{filtered.map((attendee) => (
-						<div key={attendee.id} className="rounded-md border border-cursor-border bg-cursor-bg p-4">
-							<div className="flex items-start justify-between gap-4">
-								<div>
-									<p className="font-medium">{attendee.name}</p>
-									<p className="text-sm text-cursor-text-muted">{attendee.email}</p>
-									{attendee.hasRedeemed && attendee.redeemedAt ? (
-										<p className="mt-2 text-sm text-cursor-accent-green">
-											Redeemed on {new Date(attendee.redeemedAt).toLocaleString()}
-										</p>
-									) : null}
+			<Card>
+				<CardContent>
+					<h2 className="font-heading font-semibold tracking-tight">Attendees ({filtered.length})</h2>
+					<div className="mt-4 space-y-3">
+						{filtered.map((attendee) => (
+							<div key={attendee.id} className="rounded-lg border bg-background p-4">
+								<div className="flex items-start justify-between gap-4">
+									<div>
+										<p className="font-medium">{attendee.name}</p>
+										<p className="text-sm text-muted-foreground">{attendee.email}</p>
+										{attendee.hasRedeemed && attendee.redeemedAt ? (
+											<p className="mt-2 text-sm text-emerald-400">
+												Redeemed on {new Date(attendee.redeemedAt).toLocaleString()}
+											</p>
+										) : null}
+									</div>
+									<Badge variant={attendee.hasRedeemed ? 'success' : 'warning'}>
+										{attendee.hasRedeemed ? 'Redeemed' : 'Pending'}
+									</Badge>
 								</div>
-								<span className="text-xs uppercase tracking-wide text-cursor-text-muted">
-									{attendee.hasRedeemed ? 'Redeemed' : 'Pending'}
-								</span>
 							</div>
-						</div>
-					))}
-					{filtered.length === 0 ? (
-						<p className="py-6 text-center text-sm text-cursor-text-muted">No attendees found.</p>
-					) : null}
-				</div>
-			</div>
+						))}
+						{filtered.length === 0 ? (
+							<p className="py-6 text-center text-sm text-muted-foreground">No attendees found.</p>
+						) : null}
+					</div>
+				</CardContent>
+			</Card>
 		</div>
 	);
 }
@@ -163,8 +166,8 @@ export default function CreditsAdminAttendeesPage() {
 function MiniStat({ label, value }: { label: string; value: number }) {
 	return (
 		<div className={cardClass}>
-			<p className="text-2xl font-medium">{value}</p>
-			<p className="text-sm text-cursor-text-muted">{label}</p>
+			<p className="text-2xl font-semibold tracking-tight">{value}</p>
+			<p className="text-sm text-muted-foreground">{label}</p>
 		</div>
 	);
 }
