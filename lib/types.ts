@@ -14,7 +14,6 @@ export interface CursorEvent {
 	lumaEventId?: string;
 	/** Internal path (e.g. /cafe-cursor-qr) for a printable / shareable QR poster */
 	qrPath?: string;
-	/** Internal path (e.g. /credits/event/slug/redeem) for claiming Cursor credits */
 	redeemPath?: string;
 	recapPath?: string;
 	thumbnail?: string;
