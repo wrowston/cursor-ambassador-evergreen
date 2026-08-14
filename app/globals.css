@@ -71,10 +71,10 @@
 	--color-cursor-accent-yellow-bg: rgba(42, 36, 24, 0.3);
 	--color-cursor-accent-orange-bg: rgba(42, 32, 24, 0.3);
 
-	--font-sans: 'CursorGothic', system-ui, sans-serif;
-	--font-heading: 'CursorGothic', system-ui, sans-serif;
-	--font-mono: 'CursorGothic', ui-monospace, SFMono-Regular, Menlo, monospace;
-	--font-cursor: 'CursorGothic', system-ui, sans-serif;
+	--font-sans: var(--font-cursor-gothic), 'CursorGothic', system-ui, sans-serif;
+	--font-heading: var(--font-cursor-gothic), 'CursorGothic', system-ui, sans-serif;
+	--font-mono: var(--font-cursor-gothic), ui-monospace, SFMono-Regular, Menlo, monospace;
+	--font-cursor: var(--font-cursor-gothic), 'CursorGothic', system-ui, sans-serif;
 	--font-bsru: 'BSRU Pro', sans-serif;
 	--font-thai: 'Thasadith', sans-serif;
 
@@ -149,6 +149,8 @@
 	--radius-lg: var(--radius);
 	--radius-xl: 12px;
 	--radius-2xl: 16px;
+	--default-border-width: 1px;
+	--default-border-color: var(--border);
 	--ease-out-spring: cubic-bezier(0.25, 1, 0.5, 1);
 }
 
@@ -224,7 +226,7 @@
 
 @layer base {
 	* {
-		@apply border-border outline-ring/50;
+		border-color: var(--border);
 	}
 
 	html,
@@ -236,7 +238,7 @@
 	}
 
 	body {
-		font-family: var(--font-sans);
+		font-family: var(--font-cursor-gothic), var(--font-sans);
 		-webkit-font-smoothing: antialiased;
 		-moz-osx-font-smoothing: grayscale;
 	}
@@ -247,7 +249,7 @@
 	h4,
 	h5,
 	h6 {
-		font-family: var(--font-heading);
+		font-family: var(--font-cursor-gothic), var(--font-heading);
 		letter-spacing: -0.025em;
 	}
 

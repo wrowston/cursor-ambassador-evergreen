@@ -93,7 +93,7 @@ export default function CreditsAdminLayout({ children }: { children: React.React
 						<Link
 							key={item.href}
 							href={item.href}
-							className={`border-b-2 py-3 text-sm ${
+							className={`border-b py-3 text-sm ${
 								pathname === item.href
 									? 'border-foreground text-foreground'
 									: 'border-transparent text-muted-foreground hover:text-foreground'
