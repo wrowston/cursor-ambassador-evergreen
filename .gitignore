@@ -30,3 +30,4 @@ next-env.d.ts
 # cursor/ide local
 .cursor/
 .claude/
+.worktrees/

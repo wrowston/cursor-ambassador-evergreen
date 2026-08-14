@@ -11,7 +11,8 @@
 		"attendees": "{count} attendees",
 		"hostedBy": "Hosted by",
 		"viewRecap": "View recap",
-		"viewSlides": "View slides"
+		"viewSlides": "View slides",
+		"claimCredits": "Claim credits"
 	},
 	"ambassadors": {
 		"title": "Cursor {communityName} ambassadors"
